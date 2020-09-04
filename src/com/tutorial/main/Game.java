@@ -26,6 +26,7 @@ public class Game extends Canvas implements Runnable {
 		Menu,
 		Help,
 		Game,
+		Pause,
 		End
 	};
 	
@@ -103,22 +104,23 @@ public class Game extends Canvas implements Runnable {
 	private void tick () {
 		handler.tick();
 		if (gameState == STATE.Game) {
-			hud.tick();
-			spawner.tick();
-			
-			if (HUD.HEALTH <= 0) {
-				HUD.HEALTH = 100;
+			if (!paused) {
+				hud.tick();
+				spawner.tick();
 				
-				handler.objects.clear();
-				gameState = STATE.End;
-				for ( int i = 0; i < 10; i++) {
-					handler.addObject(new MenuParticle(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.MenuParticle, handler));
+				if (HUD.HEALTH <= 0) {
+					HUD.HEALTH = 100;
+					
+					handler.objects.clear();
+					gameState = STATE.End;
+					for ( int i = 0; i < 10; i++) {
+						handler.addObject(new MenuParticle(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.MenuParticle, handler));
+					}
 				}
-			}
+			}			
 		} else if (gameState == STATE.Menu || gameState == STATE.End) {
 			menu.tick();			
-		}
-		 
+		}		 
 	}
 	
 	private void render () {
@@ -134,6 +136,10 @@ public class Game extends Canvas implements Runnable {
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		handler.render(g);
+		
+		if (paused) {
+			g.drawString("Paused", 100, 100);
+		}
 		
 		if (gameState == STATE.Game) {
 			hud.render(g);

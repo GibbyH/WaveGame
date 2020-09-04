@@ -40,7 +40,7 @@ public class KeyInput extends KeyAdapter {
 			}
 		}	
 		
-		if (key == KeyEvent.VK_P) {
+		if (key == KeyEvent.VK_P && game.gameState == STATE.Game) {
 			if (Game.paused) Game.paused = false;
 			else Game.paused = true;
 		}
