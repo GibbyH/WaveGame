@@ -41,6 +41,8 @@ public class Game extends Canvas implements Runnable {
 		this.addMouseListener(menu);
 		new Window(WIDTH, HEIGHT, "Let's bulild a Game!", this);
 		
+		AudioPlayer.load();
+		AudioPlayer.getMusic("music").loop();
 		
 		spawner = new Spawn(handler, hud);
 		r = new Random();
