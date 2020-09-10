@@ -104,9 +104,10 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	private void tick () {
-		handler.tick();
+		
 		if (gameState == STATE.Game) {
 			if (!paused) {
+				handler.tick();
 				hud.tick();
 				spawner.tick();
 				
@@ -121,6 +122,7 @@ public class Game extends Canvas implements Runnable {
 				}
 			}			
 		} else if (gameState == STATE.Menu || gameState == STATE.End) {
+			handler.tick();
 			menu.tick();			
 		}		 
 	}
@@ -140,7 +142,7 @@ public class Game extends Canvas implements Runnable {
 		handler.render(g);
 		
 		if (paused) {
-			g.drawString("Paused", 100, 100);
+			g.drawString("Paused", 200, 200);
 		}
 		
 		if (gameState == STATE.Game) {
