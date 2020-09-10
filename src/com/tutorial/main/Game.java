@@ -20,10 +20,12 @@ public class Game extends Canvas implements Runnable {
 	private Spawn spawner;
 	private Menu menu;
 	
+	public int diff = 0;
 	public static boolean paused = false;
 	public static final int WIDTH = 1600, HEIGHT = WIDTH / 12 * 9;
 	public enum STATE {
 		Menu,
+		Select,
 		Help,
 		Game,
 		Pause,
@@ -121,7 +123,7 @@ public class Game extends Canvas implements Runnable {
 					}
 				}
 			}			
-		} else if (gameState == STATE.Menu || gameState == STATE.End) {
+		} else if (gameState == STATE.Menu || gameState == STATE.End || gameState == STATE.Select) {
 			handler.tick();
 			menu.tick();			
 		}		 
@@ -147,7 +149,7 @@ public class Game extends Canvas implements Runnable {
 		
 		if (gameState == STATE.Game) {
 			hud.render(g);
-		} else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.End) {
+		} else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.End || gameState == STATE.Select) {
 			menu.render(g);
 		}
 		

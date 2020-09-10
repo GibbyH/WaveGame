@@ -31,10 +31,13 @@ public class Menu extends MouseAdapter {
 		if (game.gameState == STATE.Menu) {
 			// Play button
 			if (mouseOver(mx, my, 600, 350, 400, 64)) {
-				this.handler.objects.clear();
-				game.gameState = STATE.Game;
-				handler.addObject(new Player(Game.WIDTH / 2 -32, Game.HEIGHT / 2 - 32, ID.Player, handler));
-				handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.BasicEnemy, handler));
+				//this.handler.objects.clear();
+				//game.gameState = STATE.Game;
+				//handler.addObject(new Player(Game.WIDTH / 2 -32, Game.HEIGHT / 2 - 32, ID.Player, handler));
+				//handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.BasicEnemy, handler));
+				
+				game.gameState = STATE.Select;
+				return;
 			}
 			
 			// Help button
@@ -50,10 +53,32 @@ public class Menu extends MouseAdapter {
 		}		
 		
 		// Back button
-		if (game.gameState == STATE.Help || game.gameState == STATE.End) {
+		if (game.gameState == STATE.Help || game.gameState == STATE.End || game.gameState == STATE.Select) {
 			if (mouseOver(mx, my, 600, 850, 400, 64)) {
 				game.gameState = STATE.Menu;
 				hud.setScore(0);
+			}
+		}
+		
+		if (game.gameState == STATE.Select) {
+			// Mormal button
+			if (mouseOver(mx, my, 600, 350, 400, 64)) {
+				this.handler.objects.clear();
+				game.gameState = STATE.Game;
+				handler.addObject(new Player(Game.WIDTH / 2 -32, Game.HEIGHT / 2 - 32, ID.Player, handler));
+				handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.BasicEnemy, handler));
+				
+				game.diff = 0;				
+			}
+			
+			// Hard button
+			if (mouseOver(mx, my, 600, 550, 400, 64)) {
+				this.handler.objects.clear();
+				game.gameState = STATE.Game;
+				handler.addObject(new Player(Game.WIDTH / 2 -32, Game.HEIGHT / 2 - 32, ID.Player, handler));
+				handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.BasicEnemy, handler));
+				
+				game.diff = 1;	
 			}
 		}
 		
@@ -111,7 +136,29 @@ public class Menu extends MouseAdapter {
 			g.setFont(fnt2);
 			g.setColor(Color.white);
 			g.drawRect(600, 850, 400, 64);
-			g.drawString("Back", 775, 890);
+			g.drawString("Back", 775, 890);			
+		} else if (game.gameState == STATE.Select) {
+				Font fnt = new Font("arial", 1, 50);
+				Font fnt2 = new Font("arial", 1, 25);
+				Font fnt3 = new Font("arial", 1, 15);
+				
+				g.setFont(fnt);
+				g.setColor(Color.white);
+				g.drawString("SelectDifficulty", 728, 100);
+				
+				g.setFont(fnt2);
+				g.setColor(Color.white);
+				g.drawRect(600, 350, 400, 64);
+				g.drawString("Normal", 775, 390);
+				
+				g.setColor(Color.white);
+				g.drawRect(600, 550, 400, 64);
+				g.drawString("Hard", 780, 590);
+				
+				g.setFont(fnt2);
+				g.setColor(Color.white);
+				g.drawRect(600, 850, 400, 64);
+				g.drawString("Back", 775, 890);
 		} else if (game.gameState == STATE.End) {
 			Font fnt = new Font("arial", 1, 50);
 			Font fnt2 = new Font("arial", 1, 25);
