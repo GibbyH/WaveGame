@@ -46,7 +46,7 @@ public class Game extends Canvas implements Runnable {
 		AudioPlayer.load();
 		AudioPlayer.getMusic("music").loop();
 		
-		spawner = new Spawn(handler, hud);
+		spawner = new Spawn(handler, hud, this);
 		r = new Random();
 		
 		if (gameState == STATE.Game) {
